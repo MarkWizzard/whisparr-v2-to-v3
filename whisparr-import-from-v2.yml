@@ -1,0 +1,31 @@
+name: Whisparr Import From v2
+description: Move files from /processing to /stashed and trigger Whisparr import
+version: 1.0
+author: MarkWizzard
+interface: raw
+
+exec:
+  - python
+  - "{pluginDir}/whisparr-import-from-v2.py"
+
+hooks:
+  - name: Run on scene update
+    triggeredBy:
+      - Scene.Update.Post
+
+tasks:
+  - name: "Run Whisparr Import Manually"
+    description: Scan /processing folder and import all scenes with StashID
+    defaultArgs:
+      mode: manual
+
+settings:
+  WHISPARR_URL:
+    displayName: Whisparr URL
+    type: STRING
+  WHISPARR_KEY:
+    displayName: Whisparr API Key
+    type: STRING
+  MONITORED:
+    displayName: Monitor after add
+    type: BOOLEAN
